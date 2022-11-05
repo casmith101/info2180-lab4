@@ -1,5 +1,20 @@
 <?php
 
+if (isset($_GET["search"])) {
+    if (!filter_input(INPUT_GET, $_GET["search"], FILTER_SANITIZE_STRING === false)) 
+        foreach($superheroes as $item) {
+            if (in_array($_GET["search"], $superheroes, true)){
+                $key = array_search($_GET["search"], array_column($superheroes, "name"));
+                echo $superheroes[$key];
+            } 
+        }
+        echo "SUPERHEROE NOT FOUND";
+    if (filter_input(INPUT_GET, $_GET["search"], FILTER_SANITIZE_STRING === NULL){
+        echo 
+    }
+}
+
+
 $superheroes = [
   [
       "id" => 1,
@@ -62,6 +77,7 @@ $superheroes = [
       "biography" => "Notably powerful, Wanda Maximoff has fought both against and with the Avengers, attempting to hone her abilities and do what she believes is right to help the world.",
   ], 
 ];
+
 
 ?>
 
