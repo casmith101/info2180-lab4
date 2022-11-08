@@ -1,20 +1,5 @@
 <?php
 
-if (isset($_GET["search"])) {
-    if (!filter_input(INPUT_GET, $_GET["search"], FILTER_SANITIZE_STRING === false)) 
-        foreach($superheroes as $item) {
-            if (in_array($_GET["search"], $superheroes, true)){
-                $key = array_search($_GET["search"], array_column($superheroes, "name"));
-                echo $superheroes[$key];
-            } 
-        }
-        echo "SUPERHEROE NOT FOUND";
-    if (filter_input(INPUT_GET, $_GET["search"], FILTER_SANITIZE_STRING === NULL){
-        echo 
-    }
-}
-
-
 $superheroes = [
   [
       "id" => 1,
@@ -77,12 +62,31 @@ $superheroes = [
       "biography" => "Notably powerful, Wanda Maximoff has fought both against and with the Avengers, attempting to hone her abilities and do what she believes is right to help the world.",
   ], 
 ];
-
-
 ?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'GET'):
+    debug_zval_dump($_GET);
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+    $search = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRING);
+    $inarray = false; 
+?>
+    <?php if (!isset($_GET['searchValue'])): ?> 
+        <ul>
+            <?php foreach ($superheroes as $superhero): ?>
+            <li><?= $superhero['alias']; ?></li>
+            <?php endforeach; ?>
+        </ul>";
+    <?php else:
+        foreach ($superheroes as $superhero):
+            if (in_array($_GET["searchValue"], $superhero)):
+                $inarray= true; ?>
+                <h3><?= $superhero['alias']; ?></h3>
+                <h4> A.K.A. <? $superhero['name']; ?></h4>
+                <p><?= $superhero['biography']; ?><p>
+            <?php endif; ?>
+        <?php endforeach; ?>    
+        <?php if($inarray == false): ?>
+            <div> SUPERHERO NOT FOUND </div>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>
