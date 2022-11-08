@@ -1,11 +1,12 @@
 window.onload= function(){
     let button= this.document.querySelector('#btn')
     let search= document.querySelector('#search')
+    let searchValue = search.value;
 
     button.addEventListener("click", function(element){
         element.preventDefault();
 
-        fetch('http://localhost/info2180-lab4/info2180-ajax-superheroes-master/superheroes.php')
+        fetch('http://localhost/info2180-lab4/info2180-ajax-superheroes-master/superheroes.php?query='+ searchValue)
             .then(response => {
                 if (response.ok){
                     return response.text()
@@ -16,7 +17,7 @@ window.onload= function(){
             .then(data => {
                 let result = document.querySelector('#result');
                 result.innerHTML = data;
-                console.log(data);
+                /*console.log(data);*/
             })
     })
 
